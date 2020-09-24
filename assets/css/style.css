@@ -1,0 +1,134 @@
+:root {
+    --green:#5efa0a;
+    --orange:#fca613;
+    --purple:#970fd1;
+    --dpurple: #6a2585;
+    --lgrey:#bcbdbd;
+    --dgrey:#858483;
+    --primary: Muli, Sans-Serif;
+    --secondary: Merriweather, Serif;
+}
+
+body {
+    background-color: var(--lgrey);
+}
+
+main {
+    display: grid;
+    width: 70%;
+    margin: 15% 15% auto 15%;
+    text-align: center;
+    background-color: var(--dgrey);
+    border-style: ridge;
+    border-width: 2px;
+    border-color: var(--purple);
+    padding: 1%;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, minmax(auto, auto));
+}
+
+button {
+    border-radius: 8px;
+    border-color: var(--purple);
+    overflow-wrap: normal;
+    background-color: var(--dgrey);
+    width: 50px;
+    height: 50px;
+    padding: 1px;
+    font-family: var(--primary);
+    color: var(--dpurple);
+    font-weight: bold;
+}
+
+button.start-quiz {
+    background-color: var(--lgrey);
+    align-self: flex-start;
+}
+
+div.start-quiz {
+    grid-column: 1;
+}
+
+.timer {
+    align-items: right;
+    color: var(--green);
+    font-family: var(--primary);
+    text-align: center;
+    line-height: 1.0;
+}
+
+div.timer {
+    grid-column: 4;
+    width: 50px;
+    height: 50px;
+    word-break: break-all;
+}
+
+h3.timer {
+    margin-top: 0;
+}
+
+div.title {
+    grid-column: 1 / span 4;
+    grid-row: 2;
+}
+
+h1.title {
+    color: var(--orange);
+    font-family: var(--primary);
+    letter-spacing: 9px;
+    margin: 40px auto 0 auto;   
+}
+
+div.true {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+div.false {
+    grid-column: 3;
+    grid-row: 4;
+}
+
+button.true, button.false {
+    font-size: 24px;
+    font-weight: 900;
+}
+
+div.scores {
+    grid-column: 1;
+    grid-row: 6;
+    overflow-wrap: normal;
+}
+
+button.scores {
+    width: 60px;
+    height: 60px;
+    background-color: var(--lgrey);
+}
+
+div.question-space {
+    grid-column: 1 / span 4;
+    grid-row: 3;
+    font-family: var(--secondary);
+    color: var(--dpurple);
+}
+
+div.answer-space {
+    grid-column: 1 / span 4;
+    grid-row: 5;
+    font-family: var(--secondary);
+    height: 60px;
+    color: var(--orange);
+    font-style: italic;
+}
