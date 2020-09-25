@@ -139,3 +139,9 @@ div.answer-space {
     color: var(--orange);
     font-style: italic;
 }
+
+div.next {
+    grid-column: 4;
+    grid-row: 4;
+}
+

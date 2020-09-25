@@ -13,6 +13,7 @@ var timerEl = document.querySelector("span");
 var startBtn = document.getElementById("start-quiz")
 var scoreBtn = document.getElementById("score");
 var initialsEl = document.getElementById("initials");
+var nextBtn = document.getElementById("next");
 
 // set up for delegating click responsibility to div.container containing button elements
 var pageContentEl = document.querySelector("container");
@@ -95,13 +96,31 @@ var assessUserSelection = function () {
         // display message re incorrect answer and subtract 5 seconds from clock timer
         answerSpaceEl.textContent = questions[currentQ].ifWrong;
     }
+    insertNextBtn()
+}
+
+var insertNextBtn = function () {
+    // this div will act as container for the 'next' button
+    var containNxtEl = document.createElement("div");
+    containNxtEl.className = "next";
+
+    // create next button
+    var nextBtn = document.createElement("button");
+    nextBtn.textContent = "NEXT";
+    nextBtn.className = "next";
+    nextBtn.setAttribute("id", "hide");
+
+    // adds next button to the div
+    containNxtEl.appendChild(nextBtn);
+    console.log(nextBtn);
+
     interimState()
 }
 
 var interimState = function() {
     trueBtn.setAttribute("id", "hide");
     falseBtn.setAttribute("id", "hide");
-    startBtn.textContent = "NEXT";
+    nextBtn.removeAttribute("id");
     nextQuestion()
 }
 
