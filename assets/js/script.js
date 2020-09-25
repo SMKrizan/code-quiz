@@ -5,15 +5,16 @@ currentQ = 0;
 userSelection = "";
 
 //DOM ELEMENTS
+var startBtn = document.getElementById("start-quiz");
 var trueBtn = document.querySelector("button.true");
 var falseBtn = document.querySelector("button.false");
+var nextBtn = document.querySelector("button.next");
+var highScoreBtn = document.getElementById("score");
 var questionSpaceEl = document.querySelector("p.question-space");
 var answerSpaceEl = document.querySelector("p.answer-space");
 var timerEl = document.querySelector("span");
-var startBtn = document.getElementById("start-quiz")
-var scoreBtn = document.getElementById("score");
 var initialsEl = document.getElementById("initials");
-var nextBtn = document.getElementById("next");
+
 
 // set up for delegating click responsibility to div.container containing button elements
 var pageContentEl = document.querySelector("container");
@@ -96,24 +97,6 @@ var assessUserSelection = function () {
         // display message re incorrect answer and subtract 5 seconds from clock timer
         answerSpaceEl.textContent = questions[currentQ].ifWrong;
     }
-    insertNextBtn()
-}
-
-var insertNextBtn = function () {
-    // this div will act as container for the 'next' button
-    var containNxtEl = document.createElement("div");
-    containNxtEl.className = "next";
-
-    // create next button
-    var nextBtn = document.createElement("button");
-    nextBtn.textContent = "NEXT";
-    nextBtn.className = "next";
-    nextBtn.setAttribute("id", "hide");
-
-    // adds next button to the div
-    containNxtEl.appendChild(nextBtn);
-    console.log(nextBtn);
-
     interimState()
 }
 
@@ -121,16 +104,23 @@ var interimState = function() {
     trueBtn.setAttribute("id", "hide");
     falseBtn.setAttribute("id", "hide");
     nextBtn.removeAttribute("id");
-    nextQuestion()
+    nextBtn.addEventListener("click", nextQuestion);
 }
 
 var nextQuestion = function() {
+    nextBtn.setAttribute("id", "hide");
+    trueBtn.removeAttribute("id");
+    falseBtn.removeAttribute("id");
+    answerSpaceEl.textContent = "";
     currentQ ++;
     displayQuestion()
 }
 
 // QUIZ OVER function is triggered either by completion of all questions or reaching the maximum time available for the quiz (60 seconds)
 quizOver = function () {
+    trueBtn.setAttribute("id", "hide");
+    falseBtn.setAttribute("id", "hide");
+    questionSpaceEl.textContent = "";
     if (time === 0 && currentQ < 10) {
         answerSpaceEl.textContent = "You have run out of time. Your score is " + score + ". Try again!";
     }
@@ -141,9 +131,32 @@ quizOver = function () {
     }
 }
 
-// SAVE STATS function takes and saves input of the user's initials and stores them along with the user's score 
+// // SAVE STATS function takes and saves input of the user's initials and stores them along with the user's score
+// var saveInitials = function () {
+//     localStorage.setItem("initials", initialsEl);
+// }
 
-//pageContentEl.addEventListener("click", quizButtonHandler)
+// // LOAD STATS function to get tasks from localStorage, convert from string format back into an array of objects and iterates through tasks array to create the elements on the page
+// var loadStats = function () {
+//     // get tasks from localStorage and account for the condition where there are no saved tasks
+//     var savedStats = localStorage.getItem("stats");
+    
+//     if (savedStats === null) {
+//         return false;
+//     }
+//     // convert from string to an array of objects
+//     savedStats = JSON.parse(savedStats);
+
+//     // iterate through stats array to create elements on the page
+//     for (var i = 0; i < savedStats.length; i++) {
+//     // pass each stat object into the 'createStatEl()' function
+//     createStatEl(savedStats[i]);
+//     }
+// }
+
+
+// EVENT LISTENERS for button click events
 startBtn.addEventListener("click", startQuiz)
 trueBtn.addEventListener("click", trueOrFalse)
 falseBtn.addEventListener("click", trueOrFalse)
+
