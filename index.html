@@ -13,7 +13,7 @@
 
     <main>
         <div class="wrapper">
-            <div class="container">
+            <div class="container" id="container">
                 <div class="start-quiz">
                     <button class="start-quiz">Start Quiz</button>
                 </div>
@@ -24,17 +24,16 @@
                     <h1 class="title"> - C O D E Q U I Z - </h1>
                 </div>
                 <div class="question-space">
-                    <h4 class="question-space">Once the quiz starts, there will be 60 seconds on the clock to complete 10 true-or-false coding questions. But watch out! Time will be subtracted for each incorrect answer. <br />Are you ready?</h4>
+                    <p id="question-space">Once the quiz starts, there will be 60 seconds on the clock to complete 10 true-or-false coding questions. But watch out! Time will be subtracted for each incorrect answer. <br />Are you ready?</p>
                 </div>
-                <div class="true">
+                <div class="true" id="hide">
                     <button class="true">T</button>
                 </div>
-                <div class="false">
+                <div class="false" id="hide">
                     <button class="false">F</button>
                 </div>
                 <div class="answer-space">
-                    <h3 class="answer-space"></h3>
-                    <h4 class="answer-space"></h4>
+                    <p id="answer-space"></p>
                 </div>
                 <div class="scores">
                     <button class="scores">View High Scores</button>
@@ -44,7 +43,7 @@
     </main>
 
     <script src="./assets/js/script.js"></script>
-    <script src="./assets/js/high-scores.js"></script>
+    <!-- <script src="./assets/js/questions.js"></script> -->
 </body>
 
 </html>

@@ -60,4 +60,4 @@ var questions = [
         answer: 'F',
         ifWrong: "INCORRECT: reserved words like 'default' and 'export' should not be used as variables."
     },
-]
+];
