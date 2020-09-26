@@ -1,5 +1,6 @@
 // VIEW HIGH SCORES BUTTON was clicked; 
 returnBtn = document.querySelector("button");
+var placeToPage = document.getElementById("scores");
 
 // LOAD STATS function to get tasks from localStorage, convert from string format back into an array of objects and iterates through tasks array to create the elements on the page
 var loadStats = function () {
@@ -10,37 +11,36 @@ var loadStats = function () {
         stats = [];
         return false;
     }
-    console.log("stats located")
 
     // convert from string to an array of objects
     savedStats = JSON.parse(savedStats);
-    console.log(savedStats);
-
-    displayStats(savedStats)
-}
-
-var displayStats = function (savedStats) {
-    console.log(savedStats);
-    console.log(savedStats.id);
 
     // iterate through stats array to create elements on the page
     for (var i = 0; i < savedStats.length; i++) {
         // pass each stat object into the 'createStatEl()' function
         displayStats(savedStats[i]);
     }
+}
+
+var displayStats = function (savedStats) {
+    console.log(savedStats);
     
-    // create new entry into high stats list
+    // create new entry into list of saved stats
     var statsListEl = document.createElement("li");
     statsListEl.className = "stats";
+    console.log(statsListEl);
 
     // create div to hold stats info and add to list item
     var userStatsEl = document.createElement("div");
     userStatsEl.className = "user-stats";
     userStatsEl.textContent = '';
-    userStatsEl.innerHTML = "<h3 class='user-name'>" + savedStats.name + 
-                            "</h3><span class='user-score'>" + savedStats.score + 
-                            "</span><span class='event-id'>" + savedStats.id + "</span>";
+    userStatsEl.innerHTML = "<h3 class='user-name'> Name: " + savedStats.name + 
+                            "</h3><p class='user-score'> Score: " + savedStats.score + 
+                            "</p><p class='event-id'> Timestamp: " + savedStats.id + "</p>";
     statsListEl.appendChild(userStatsEl);
+    placeToPage.appendChild(statsListEl);
+    
+    
 
 }
 

@@ -184,11 +184,11 @@ var statsHandler = function (event) {
         id: timeStamp,
     }
 
-    // // send alert if form is empty
-    // if (!nameInput || !finalScore) {
-    //     alert("If you choose not to enter your name your score will not be saved.")
-    //     return;
-    // }
+    // send alert if form is empty
+    if (!nameInput || !finalScore) {
+        alert("If you choose not to enter your name your score will not be saved.")
+        return;
+    }
 
     packageStats(userStatsObj)
 }
