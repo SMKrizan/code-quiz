@@ -1,7 +1,7 @@
 //GLOBAL VARIABLES
 var time = questions.length * 6;
 var score = 0;
-finalScore = 0;
+var finalScore = 0;
 var timerId;
 var stats = [];
 currentQ = 0;
@@ -23,6 +23,7 @@ var timerEl = document.getElementById("time");
 var formEl = document.querySelector("#input-form");
 // this is the div containing the input field
 var inputFormEl = document.querySelector("div.form-group");
+
 // QUIZ STARTS once 'start quiz' button is clicked
 var startQuiz = function (event) {
     // prevents browser from reloading
@@ -169,10 +170,19 @@ quizOver = function () {
 }
 
 // STATS HANDLER function collects user input (name) and stores it as object with user's score and unique id
-var statsHandler = function () {
-    
+var statsHandler = function (event) {
     var nameInput = document.querySelector("input[name='user-name']").value;
-    var finalScore = finalScore;
+
+    // current timestamp as unique identifier to user stats object
+    var timeStamp = Date.now();
+
+    formEl.reset();
+
+    var userStatsObj = {
+        name: nameInput,
+        score: finalScore,
+        id: timeStamp,
+    }
 
     // // send alert if form is empty
     // if (!nameInput || !finalScore) {
@@ -180,35 +190,18 @@ var statsHandler = function () {
     //     return;
     // }
 
-    inputFormEl.reset();
-
-    var userStatsObj = {
-        name: nameInput,
-        score: finalScore,
-        id: statsIdCounter
-    }
-
     packageStats(userStatsObj)
 }
 
 var packageStats = function (userStatsObj) {
 
     console.log(userStatsObj);
-    console.log(userStatsObj.status);
-
-    //ADD STATS ID as a custom attribute
-    statsListEl.setAttribute("user-stats-id", statsCounter);
-
-    userStatsObj.id = statsIdCounter;
 
     // enter user stats into stats array
     stats.push(userStatsObj);
     console.log(stats);
 
     saveStats()
-
-    // INCREASE STATS COUNTER for next stats id
-    statsIdCounter++;
 }
 
 // VIEW HIGH SCORES BUTTON was clicked; 
@@ -220,11 +213,6 @@ var displayHighScores = function (event) {
 var saveStats = function () {
     localStorage.setItem("stats", JSON.stringify(stats));
 }
-
-// // save to localstorage
-// userInput.push(newScore);
-// window.localStorage.setItem("highscores", JSON.stringify(highscores));
-
 
 // EVENT LISTENERS for button click events
 startBtn.addEventListener("click", startQuiz)

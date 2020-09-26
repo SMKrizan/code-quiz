@@ -2,8 +2,7 @@
 returnBtn = document.querySelector("button");
 
 // get saved scores from localstorage, or if not any, set to empty array
-var highscores =
-    JSON.parse(window.localStorage.getItem("highscores")) || [];
+var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
 
 // LOAD STATS function to get tasks from localStorage, convert from string format back into an array of objects and iterates through tasks array to create the elements on the page
 var loadStats = function () {
@@ -14,7 +13,6 @@ var loadStats = function () {
         stats = [];
         return false;
     }
-
     console.log("stats located")
 
     // convert from string to an array of objects

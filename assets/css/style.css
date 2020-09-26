@@ -146,3 +146,17 @@ div.next {
     grid-row: 4;
 }
 
+/* MEDIA QUERIES FOR SMALL SCREENS */
+@media screen and (max-width: 980px) {
+
+}
+
+/* MEDIA QUERIES FOR TABLET */
+@media screen and (max-width: 768px) {
+
+}
+
+/* MEDIA QUERY FOR PHONE */
+@media screen and (max-width: 575px) {
+
+}
