@@ -1,29 +1,28 @@
 //GLOBAL VARIABLES
 var time = questions.length * 6;
 var score = 0;
+finalScore = 0;
 var timerId;
-var userStats = [];
+var stats = [];
 currentQ = 0;
 userSelection = "";
+var statsCounter = 0;
 
 //DOM ELEMENTS
 var startBtn = document.getElementById("start-quiz");
 var trueBtn = document.querySelector("button.true");
 var falseBtn = document.querySelector("button.false");
 var nextBtn = document.querySelector("button.next");
-var submitBtn = document.querySelector("div.btn");
+var submitBtn = document.getElementById("save-input");
+var hideSubmit = document.querySelector("div.btn");
 var highScoreBtn = document.getElementById("scores");
 var questionSpaceEl = document.querySelector("p.question-space");
 var answerSpaceEl = document.querySelector("p.answer-space");
 var timerEl = document.getElementById("time");
-var initialsEl = document.getElementById("initials");
+// this is the form element
+var formEl = document.querySelector("#input-form");
+// this is the div containing the input field
 var inputFormEl = document.querySelector("div.form-group");
-console.log(inputFormEl);
-
-
-// var quizPage = document.getElementById("wrapper");
-// var scoresPage = document.getElementById("high-scores");
-
 // QUIZ STARTS once 'start quiz' button is clicked
 var startQuiz = function (event) {
     // prevents browser from reloading
@@ -135,29 +134,6 @@ var nextQuestion = function () {
     displayQuestion()
 }
 
-// QUIZ OVER function, triggered either by completion of all questions or running out of time
-quizOver = function () {
-    clearInterval(timerId);
-    trueBtn.setAttribute("id", "hide");
-    falseBtn.setAttribute("id", "hide");
-    inputFormEl.removeAttribute("id");
-    startBtn.removeAttribute("id");
-    submitBtn.removeAttribute("id", "hide")
-    questionSpaceEl.textContent = "";
-
-    // a message displays with final score and option to input user initials
-    var message = "";
-    if (time === 0 && currentQ < 10) {
-        message += "You have run out of time. "
-    } else {
-        score = score + time;
-        message += "Quiz complete! "
-    }
-    answerSpaceEl.textContent = message + "Your score is " + score + ". Enter your name or initials and click 'submit' or play again!";
-
-    saveStats()
-}
-
 // TIMER COUNTDOWN function
 var countdown = function () {
     time = time - 1;
@@ -167,48 +143,87 @@ var countdown = function () {
     }
 }
 
-//FORM HANDLER - function for managing user input to form
-var formHandler = function (event) {
-    // var nameInput = document.querySelector("input[name = 'user-name']").nodeValue;
-    // var score = "";
+// QUIZ OVER function, triggered either by completion of all questions or running out of time
+quizOver = function () {
+    clearInterval(timerId);
+    trueBtn.setAttribute("id", "hide");
+    falseBtn.setAttribute("id", "hide");
+    inputFormEl.removeAttribute("id");
+    startBtn.removeAttribute("id");
+    hideSubmit.removeAttribute("id", "hide")
+    questionSpaceEl.textContent = "";
 
-    // // make sure value wasn't empty
-    // if (inputForm !== "") {
+    // a message displays with final score and option to input user initials
+    var message = "";
+    if (time === 0 && currentQ < 10) {
+        message += "You have run out of time. ";
+    } 
+    else {
+        score = score + time;
+        message += "Quiz complete! ";
+    }
+    answerSpaceEl.textContent = message + "Your score is " + score + ". Enter your name or initials and click 'submit' or play again!";
+
+    finalScore = score + time;
+    statsHandler()
 }
 
-// SAVE STATS function collects user input (initials) and stores them in object with user's score
-function saveStats() {
+// STATS HANDLER function collects user input (name) and stores it as object with user's score and unique id
+var statsHandler = function () {
+    
+    var nameInput = document.querySelector("input[name='user-name']").value;
+    var finalScore = finalScore;
 
-    // user stats object
-    var userStats = [
-        {
-            userInput: userName,
-            score: userScore,
-            id: ''
-        }
-    ]
+    // // send alert if form is empty
+    // if (!nameInput || !finalScore) {
+    //     alert("If you choose not to enter your name your score will not be saved.")
+    //     return;
+    // }
 
-    // save to localstorage
-    userInput.push(newScore);
-    window.localStorage.setItem("highscores", JSON.stringify(highscores));
+    inputFormEl.reset();
+
+    var userStatsObj = {
+        name: nameInput,
+        score: finalScore,
+        id: statsIdCounter
+    }
+
+    packageStats(userStatsObj)
+}
+
+var packageStats = function (userStatsObj) {
+
+    console.log(userStatsObj);
+    console.log(userStatsObj.status);
+
+    //ADD STATS ID as a custom attribute
+    statsListEl.setAttribute("user-stats-id", statsCounter);
+
+    userStatsObj.id = statsIdCounter;
+
+    // enter user stats into stats array
+    stats.push(userStatsObj);
+    console.log(stats);
+
+    saveStats()
+
+    // INCREASE STATS COUNTER for next stats id
+    statsIdCounter++;
 }
 
 // VIEW HIGH SCORES BUTTON was clicked; 
 var displayHighScores = function (event) {
     event.preventDefault();
-
     location.href = "high-scores.html";
-
 }
 
 var saveStats = function () {
-    //reveal start button & user input form
-    startBtn.removeAttribute("id");
-    inputFormEl.removeAttribute("id");
-    submitBtn.removeAttribute("id", "hide")
-
-    localStorage.setItem("initials", initialsEl);
+    localStorage.setItem("stats", JSON.stringify(stats));
 }
+
+// // save to localstorage
+// userInput.push(newScore);
+// window.localStorage.setItem("highscores", JSON.stringify(highscores));
 
 
 // EVENT LISTENERS for button click events
@@ -216,4 +231,5 @@ startBtn.addEventListener("click", startQuiz)
 trueBtn.addEventListener("click", trueOrFalse)
 falseBtn.addEventListener("click", trueOrFalse)
 highScoreBtn.addEventListener("click", displayHighScores)
-inputFormEl.addEventListener("submit", formHandler)
+formEl.addEventListener("submit", statsHandler)
+// submitBtn.addEventListener("submit", statsHandler)
