@@ -12,13 +12,13 @@
 <body>
 
     <main>
-        <div class="wrapper" id="index">
+        <div id="wrapper">
             <div class="container" id="container">
                 <div class="start-quiz">
                     <button id="start-quiz" class="start-quiz">Start Quiz</button>
                 </div>
                 <div class="timer">
-                    <h3 class="timer">TIME<span>60</span>s</h3>
+                    <h3 class="timer">TIME<span id="time">60</span>s</h3>
                 </div>
                 <div class="title">
                     <h1 class="title"> - C O D E Q U I Z - </h1>
@@ -37,19 +37,21 @@
                 </div>
                 <div class="answer-space">
                     <p class="answer-space"></p>
+                    <form id="hide">
+                        <div class="answer-space">
+                            <input type="text" name="user-input" class="user-input" placeholder="Enter Your Initials" />
+                        </div>
+                    </form>
                 </div>
                 <div class="scores">
-                    <button class="scores">View High Scores</button>
+                    <button id="scores">View High Scores</button>
                 </div>
             </div>
         </div>
-        <div id="high-scores" style="display:none">
-            <h1>High Scores</h1>
-        </div>
     </main>
 
-    <script src="./assets/js/script.js"></script>
     <script src="./assets/js/questions.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
