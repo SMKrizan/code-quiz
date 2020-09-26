@@ -40,8 +40,6 @@ var displayStats = function (savedStats) {
     statsListEl.appendChild(userStatsEl);
     placeToPage.appendChild(statsListEl);
     
-    
-
 }
 
 var returnToQuiz = function (event) {
